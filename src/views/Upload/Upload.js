@@ -27,7 +27,7 @@ const Upload = () => {
 
   // get the number of cards stored in the firestore
   const getCardsCount = useCallback(async () => {
-    const querySnapshot = await getDocs(collection(db, 'taboo-cards'));
+    const querySnapshot = await getDocs(collection(db, ''));
     let arr = [];
     querySnapshot.forEach((doc) => {
       arr.push(doc.data());

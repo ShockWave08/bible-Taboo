@@ -48,7 +48,7 @@ const Gameplay = () => {
   }, []);
 
   const getCardInfo = useCallback(async () => {
-    const querySnapshot = await getDocs(collection(db, 'taboo-cards'));
+    const querySnapshot = await getDocs(collection(db, ''));
     let arr = [];
     querySnapshot.forEach((doc) => {
       arr.push(doc.data());
