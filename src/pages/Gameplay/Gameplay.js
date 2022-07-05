@@ -2,9 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { db } from '../../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
-import Card from '../../components/card/Card';
+import Card from '../../components/Card/Card';
 import Timer from '../../components/Timer/Timer';
 import GameOver from './GameOver';
+import { genRandomIndex } from '../../Utils/getRandomIndex';
 
 const Gameplay = () => {
   const [tabooCards, setTabooCards] = useState([
@@ -152,22 +153,7 @@ const Gameplay = () => {
     setSliderPosition();
   }
 
-  // game functions
-
-  // generate unique numbers
-  function genRandomIndex() {
-    if (chosenCardList.length > 0) {
-      let index = Math.floor(Math.random() * cardCounter);
-      let checkList = chosenCardList.find((card) => card === index);
-      while (checkList !== undefined) {
-        index = Math.floor(Math.random() * cardCounter);
-        checkList = chosenCardList.find((card) => card === index);
-      }
-      return index;
-    } else {
-      return Math.floor(Math.random() * cardCounter);
-    }
-  }
+  // Game Logic
 
   function startTimer() {
     setTabooCards(tempCards);
@@ -198,7 +184,7 @@ const Gameplay = () => {
       setChosenCard(chosenCardList[prevIndex + 1]);
       setPrevCounter((prev) => prev - 1);
     } else {
-      let newCardIndex = genRandomIndex();
+      let newCardIndex = genRandomIndex(chosenCardList, cardCounter);
       setChosenCardList([...chosenCardList, newCardIndex]);
       setChosenCard(newCardIndex);
     }
